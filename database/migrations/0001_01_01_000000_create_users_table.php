@@ -12,19 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+            $table->uuid('id')->primary()->unique();
+            $table->string('discord_id');
+            $table->string('discord_username');
+            $table->string('discord_nickname');
+            $table->string('discord_avatar_url');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->boolean('bot_notifications')->default(1);
+            $table->timestamp('linked_at')->useCurrent();
             $table->timestamps();
-        });
-
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+            $table->softDeletes();
         });
 
         Schema::create('sessions', function (Blueprint $table) {
@@ -43,7 +40,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }
 };
