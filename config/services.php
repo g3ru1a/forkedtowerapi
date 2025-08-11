@@ -45,4 +45,12 @@ return [
         'avatar_default_extension' => env('DISCORD_EXTENSION_DEFAULT', 'png'), // only pick from jpg, png, webp
     ],
 
+    'nodestone' => [
+        'url' => env('NODESTONE_URL', 'http://localhost:8080'),
+        'timeout' => env('NODESTONE_TIMEOUT', 5),
+        'retries' => env('NODESTONE_RETRIES', 2),
+        'retry_sleep_ms' => env('NODESTONE_RETRY_SLEEP_MS', 200),
+        'cache_ttl' => env('NODESTONE_CACHE_TTL', 120), // seconds
+    ],
+
 ];
