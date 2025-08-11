@@ -5,53 +5,19 @@ info:
   version: 1.0.0
 servers:
   -
-    url: 'http://localhost'
+    url: 'http://forkedtowerapi.test'
 tags:
   -
     name: Endpoints
     description: ''
 paths:
-  /api/auth/redirect:
-    get:
+  /api/auth/dev:
+    post:
       summary: ''
-      operationId: getApiAuthRedirect
+      operationId: postApiAuthDev
       description: ''
       parameters: []
-      responses:
-        500:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Server Error'
-                properties:
-                  message:
-                    type: string
-                    example: 'Server Error'
-      tags:
-        - Endpoints
-      security: []
-  /api/auth/callback:
-    get:
-      summary: ''
-      operationId: getApiAuthCallback
-      description: ''
-      parameters: []
-      responses:
-        500:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: 'Server Error'
-                properties:
-                  message:
-                    type: string
-                    example: 'Server Error'
+      responses: {  }
       tags:
         - Endpoints
       security: []

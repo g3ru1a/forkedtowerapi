@@ -48,7 +48,7 @@ return [
     | Scalar Galaxy package. You can change this to use a custom OpenAPI file.
     |
     */
-    'url' => '/docs/openapi.yaml',
+    'url' => '/docs/api.json',
 
     /*
     |--------------------------------------------------------------------------
@@ -118,7 +118,7 @@ return [
         'hideSearch' => false,
 
         /** Whether dark mode is on or off initially (light mode) */
-        'darkMode' => false,
+        'darkMode' => true,
 
         /** forceDarkModeState makes it always this state no matter what*/
         'forceDarkModeState' => 'dark',
