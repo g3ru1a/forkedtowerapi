@@ -13,7 +13,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::apiResource('/characters', \App\Http\Controllers\CharacterController::class);
     Route::get('/characters/search/{name}', [\App\Http\Controllers\CharacterController::class, 'search']);
-    Route::get('/lodestone/search/{name}', [\App\Http\Controllers\CharacterController::class, 'searchNodestone']);
-    Route::get('/lodestone/character/{lodestone_id}', [\App\Http\Controllers\CharacterController::class, 'getCharacterNodestone']);
+    Route::get('/characters/verify/{lodestone_id}', [\App\Http\Controllers\CharacterController::class, 'verify']);
+
+    Route::get('/lodestone/search/{name}', [\App\Http\Controllers\NodestoneController::class, 'search']);
+    Route::get('/lodestone/character/{lodestone_id}', [\App\Http\Controllers\NodestoneController::class, 'find']);
 });
 

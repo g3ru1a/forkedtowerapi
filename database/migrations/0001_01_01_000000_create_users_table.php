@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->boolean('bot_notifications')->default(1);
             $table->timestamp('linked_at')->useCurrent();
+            $table->boolean('is_admin')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
