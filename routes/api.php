@@ -17,5 +17,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/lodestone/search/{name}', [\App\Http\Controllers\NodestoneController::class, 'search']);
     Route::get('/lodestone/character/{lodestone_id}', [\App\Http\Controllers\NodestoneController::class, 'find']);
+
+    Route::apiResource('/groups', \App\Http\Controllers\GroupController::class);
+    Route::post('/groups/{group}/add/{user}', [\App\Http\Controllers\GroupController::class, 'add_member']);
+    Route::post('/groups/{group}/remove/{user}', [\App\Http\Controllers\GroupController::class, 'remove_member']);
 });
 

@@ -29,6 +29,7 @@ return new class extends Migration
             $table->boolean('mastered')->default(false);
             $table->timestamps();
             $table->softDeletes();
+            $table->unique(['character_id', 'phantom_job_id']);
         });
     }
 

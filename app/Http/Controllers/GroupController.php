@@ -2,47 +2,104 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GroupRequest;
+use App\Http\Resources\GroupResource;
+use App\Models\Group;
+use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+    use AuthorizesRequests;
+
+    function random_base64url(int $length): string {
+        $raw = random_bytes((int) ceil($length * 0.75)); // base64 expands ≈ 4/3
+        $b64 = rtrim(strtr(base64_encode($raw), '+/', '-_'), '=');
+        return substr($b64, 0, $length);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Add a user to the group
+     * @param Group $group
+     * @param User $user
+     * @return GroupResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(Request $request)
+    public function add_member(Group $group, User $user): GroupResource
     {
-        //
+        $this->authorize('members', $group);
+        if(!$group->members->contains('id', $user->id))
+            $group->members()->attach($user);
+        return GroupResource::make($group->load('members'));
     }
 
     /**
-     * Display the specified resource.
+     * Remove a user from the group
+     * @param Group $group
+     * @param User $user
+     * @return GroupResource
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show(string $id)
+    public function remove_member(Group $group, User $user): GroupResource
     {
-        //
+        $this->authorize('members', $group);
+        if($group->members->contains('id', $user->id))
+            $group->members()->detach($user);
+        return GroupResource::make($group->load('members'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Display all groups
      */
-    public function update(Request $request, string $id)
+    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        //
+        return GroupResource::collection(Group::with('owner')->paginate(30));
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Store a new group
      */
-    public function destroy(string $id)
+    public function store(GroupRequest $request): GroupResource
     {
-        //
+        $private_path = $this->random_base64url(10);
+        $group = new Group([
+            'name' => $request->get('name'),
+            'private_path' => $private_path,
+        ]);
+        $group->owner()->associate(auth()->user());
+        $group->saveOrFail();
+        return GroupResource::make($group);
+    }
+
+    /**
+     * Display the group details
+     */
+    public function show(Group $group): GroupResource
+    {
+        return GroupResource::make($group->load('owner', 'members'));
+    }
+
+    /**
+     * Update the group info
+     */
+    public function update(GroupRequest $request, Group $group): GroupResource
+    {
+        $this->authorize('update', $group);
+        $group->fill([
+            'name' => $request->get('name'),
+        ]);
+        $group->saveOrFail();
+        return GroupResource::make($group);
+    }
+
+    /**
+     * Remove the group
+     */
+    public function destroy(Group $group): GroupResource
+    {
+        $this->authorize('destroy', $group);
+        $group->delete();
+        return GroupResource::make($group);
     }
 }

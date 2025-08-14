@@ -36,4 +36,13 @@ class User extends Authenticatable
     public function characters(): HasMany {
         return $this->hasMany(Character::class);
     }
+
+    public function groups_owned(): HasMany
+    {
+        return $this->hasMany(Group::class, 'owner_id');
+    }
+
+    public function groups_member(): BelongsToMany {
+        return $this->belongsToMany(Group::class, 'group_members', 'user_id', 'group_id');
+    }
 }
