@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Dom\CharacterData;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,5 +31,19 @@ class Character extends Model
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function occult_data(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(OccultData::class);
+    }
+
+    public function phantom_jobs(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(PhantomJob::class)
+            ->withPivot([
+                'level', 'current_xp', 'max_xp', 'mastered'
+            ])
+            ->withTimestamps();
     }
 }

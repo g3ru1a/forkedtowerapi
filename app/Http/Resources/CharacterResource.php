@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\OccultData;
+use App\Models\PhantomJob;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -23,6 +25,8 @@ class CharacterResource extends JsonResource
             'datacenter' => $this['datacenter'],
             'avatar_url' => $this['avatar_url'],
             'verified' => $this['verified'],
+            'occult_data' => OccultDataResource::make($this->whenLoaded('occult_data')),
+            'phantom_jobs' => PhantomJobResource::collection($this->whenLoaded('phantom_jobs')),
             'deleted_at' => $this->when($this['deleted_at'] != null, $this['deleted_at']),
         ];
     }

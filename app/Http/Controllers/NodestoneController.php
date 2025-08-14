@@ -26,7 +26,7 @@ class NodestoneController extends Controller
                 (int) config('services.nodestone.retries'),
                 (int) config('services.nodestone.retry_sleep_ms')
             )
-            ->get('/Character/'.$lodestone_id);
+            ->get('/Character/'.$lodestone_id.'?data=CJ');
     }
 
     /**
