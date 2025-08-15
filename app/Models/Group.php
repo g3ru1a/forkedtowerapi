@@ -28,4 +28,15 @@ class Group extends Model
     {
         return $this->belongsToMany(User::class, 'group_members', 'group_id', 'user_id');
     }
+
+    public function hasUser(User $user): bool
+    {
+        if ($this->user_id === $user->id) {
+            return true;
+        }
+
+        return $this->members()
+            ->where('user_id', $user->id)
+            ->exists();
+    }
 }

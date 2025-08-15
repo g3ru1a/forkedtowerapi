@@ -21,5 +21,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('/groups', \App\Http\Controllers\GroupController::class);
     Route::post('/groups/{group}/add/{user}', [\App\Http\Controllers\GroupController::class, 'add_member']);
     Route::post('/groups/{group}/remove/{user}', [\App\Http\Controllers\GroupController::class, 'remove_member']);
+
+    Route::get('/schedules/types', [\App\Http\Controllers\ScheduleController::class, 'getTypes']);
+    Route::apiResource('/schedules', \App\Http\Controllers\ScheduleController::class);
 });
 

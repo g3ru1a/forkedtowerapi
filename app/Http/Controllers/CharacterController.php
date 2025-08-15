@@ -22,6 +22,15 @@ class CharacterController extends Controller
 {
     use AuthorizesRequests;
 
+    private static function getPhantomJobsArray(): array
+    {
+        $cacheKey = 'schedule-types';
+        $ttl = now()->addDays(30);
+        return \Cache::remember($cacheKey, $ttl, function () {
+            return PhantomJob::query()->orderBy('name')->pluck('id', 'name')->toArray();
+        });
+    }
+
     private static function GenerateVerificationCode(): string {
         return 'ft_' . str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT);
     }
@@ -99,7 +108,7 @@ class CharacterController extends Controller
         //Persist Character in DB
         $character->saveOrFail();
         //Get the Phantom Jobs from our DB and Map them as $phantomJobs[Name] = ID
-        $phantomJobs = PhantomJob::query()->orderBy('name')->pluck('id', 'name')->toArray();
+        $phantomJobs = self::getPhantomJobsArray();
         //Get the Pivot Data from the LodestoneCharacterMapper
         $pivotData = $lodestoneCharacter->getPhantomJobPivotData($phantomJobs);
         if($pivotData) $character->phantom_jobs()->sync($pivotData);
@@ -142,7 +151,7 @@ class CharacterController extends Controller
         //Persist Character in DB
         $character->saveOrFail();
         //Get the Phantom Jobs from our DB and Map them as $phantomJobs[Name] = ID
-        $phantomJobs = PhantomJob::query()->orderBy('name')->pluck('id', 'name')->toArray();
+        $phantomJobs = self::getPhantomJobsArray();
         //Get the Pivot Data from the LodestoneCharacterMapper
         $pivotData = $lodestoneCharacter->getPhantomJobPivotData($phantomJobs);
         if($pivotData) $character->phantom_jobs()->sync($pivotData);
