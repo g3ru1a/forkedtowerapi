@@ -22,6 +22,8 @@ return new class extends Migration
             $table->text('description');
             $table->boolean('registration_open')->default(false);
             $table->timestamp('registration_deadline')->nullable();
+            // Currently only 48 for forked tower, this can be adjusted to support different content.
+            $table->integer('slots')->default(48);
             $table->timestamps();
             $table->softDeletes();
         });
