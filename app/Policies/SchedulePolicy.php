@@ -9,6 +9,10 @@ use Illuminate\Auth\Access\Response;
 
 class SchedulePolicy
 {
+    public function before(User $user, string $ability)
+    {
+        return $user->is_admin;
+    }
     /**
      * Determine whether the user can view any models.
      */
@@ -17,6 +21,10 @@ class SchedulePolicy
         return true;
     }
 
+    public function viewAnyRegistration(User $user, Schedule $schedule): bool
+    {
+        return $schedule->group->hasUser($user);
+    }
     /**
      * Determine whether the user can view the model.
      */

@@ -10,9 +10,7 @@ class RegistrationPolicy
 {
     public function before(User $user, string $ability)
     {
-        if ($user->is_admin) {
-            return true;
-        }
+        return $user->is_admin;
     }
     /**
      * Determine whether the user can view any models.
@@ -44,6 +42,14 @@ class RegistrationPolicy
     public function update(User $user, Registration $registration): bool
     {
         return $registration->user->is($user);
+    }
+
+    /**
+     * Determine whether the user can delete the model.
+     */
+    public function deny(User $user, Registration $registration): bool
+    {
+        return $registration->schedule->group->hasUser($user);
     }
 
     /**

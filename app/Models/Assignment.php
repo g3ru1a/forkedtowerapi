@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /** @mixin Builder */
-class Registration extends Model
+class Assignment extends Model
 {
     use HasUuids, HasFactory, SoftDeletes;
 
@@ -18,13 +18,12 @@ class Registration extends Model
         'schedule_id',
         'user_id',
         'character_id',
-        'preferred_class',
-        'preferred_job',
-        'flex_classes',
-        'flex_jobs',
-        'can_lead',
-        'notes',
-        'status',
+        'seat',
+        'class',
+        'job',
+        'is_lead',
+        'is_absent',
+        'did_participate'
     ];
 
     public function user(): BelongsTo

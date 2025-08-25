@@ -8,7 +8,7 @@ if(app()->environment('local')) {
     Route::post('/auth/dev', [AuthController::class, 'devAuth']);
 }
 
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [\App\Http\Controllers\UserController::class, 'getUser'])->middleware('auth:sanctum');
 
     Route::apiResource('/characters', \App\Http\Controllers\CharacterController::class);
@@ -27,5 +27,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('/schedules', \App\Http\Controllers\ScheduleController::class);
 
     Route::apiResource('/registrations/',  \App\Http\Controllers\RegistrationController::class);
+    Route::apiResource('/assignments', \App\Http\Controllers\AssignmentController::class);
 });
 

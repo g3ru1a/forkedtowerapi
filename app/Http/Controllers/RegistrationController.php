@@ -71,6 +71,18 @@ class RegistrationController extends Controller
     }
 
     /**
+     * @throws \Throwable
+     * @throws AuthorizationException
+     */
+    public function deny(Registration $registration): RegistrationResource
+    {
+        $this->authorize('deny', $registration);
+        $registration->status = 'denied';
+        $registration->saveOrFail();
+        return RegistrationResource::make($registration);
+    }
+
+    /**
      * Remove the registration
      * @throws AuthorizationException
      */

@@ -14,6 +14,19 @@ class ScheduleResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this['id'],
+            'group' => GroupResource::make($this->whenLoaded('group')),
+            'host' => UserResource::make($this->whenLoaded('host')),
+            'type' => RunTypeResource::make($this->whenLoaded('type')),
+            'public' => $this['public'],
+            'date' => $this['date'],
+            'time' => $this['time'],
+            'description' => $this['description'],
+            'registration_open' => $this['registration_open'],
+            'registration_deadline' => $this['registration_deadline'],
+            'slots' => $this['slots'],
+            'deleted_at'=> $this->whenNotNull($this['deleted_at']),
+        ];
     }
 }

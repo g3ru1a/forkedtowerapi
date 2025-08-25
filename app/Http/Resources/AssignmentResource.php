@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RegistrationResource extends JsonResource
+class AssignmentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,13 +19,12 @@ class RegistrationResource extends JsonResource
             'schedule' => ScheduleResource::make($this->whenLoaded('schedule')),
             'user' => UserResource::make($this->whenLoaded('user')),
             'character' => CharacterResource::make($this->whenLoaded('character')),
-            'preferred_class' => $this['preferred_class'],
-            'preferred_job' => $this['preferred_job'],
-            'flex_classes' => $this['flex_classes'],
-            'flex_jobs' => $this['flex_jobs'],
-            'can_lead'=> $this['can_lead'],
-            'notes' => $this['notes'],
-            'status' => $this['status'],
+            'seat' => $this['seat'],
+            'class' => $this['class'],
+            'job' => $this['job'],
+            'is_lead' => $this['is_lead'],
+            'is_absent'=> $this['is_absent'],
+            'did_participate' => $this['did_participate'],
             'deleted_at'=> $this->whenNotNull($this['deleted_at']),
         ];
     }
