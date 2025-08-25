@@ -38,6 +38,7 @@ class CharacterController extends Controller
     /**
      *  Search for characters stored in the DB
      * @param string $name
+     * @return AnonymousResourceCollection
      */
     public function search(string $name): AnonymousResourceCollection
     {

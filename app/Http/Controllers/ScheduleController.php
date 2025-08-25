@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ScheduleRequest;
+use App\Http\Resources\RegistrationResource;
 use App\Http\Resources\RunTypeResource;
 use App\Http\Resources\ScheduleResource;
+use App\Models\Registration;
 use App\Models\RunType;
 use App\Models\Schedule;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
@@ -27,6 +30,18 @@ class ScheduleController extends Controller
             return RunType::all();
         });
         return RunTypeResource::collection($payload);
+    }
+
+    /**
+     * Get all registrations for this schedule
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @throws AuthorizationException
+     */
+    public function getRegistrations(Schedule $schedule): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        $this->authorize('viewAnyRegistration', $schedule);
+        $registrations = Registration::where('schedule_id', $schedule->id)->with(['schedule', 'user', 'character']);
+        return RegistrationResource::collection($registrations);
     }
 
     /**

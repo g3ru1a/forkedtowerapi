@@ -23,6 +23,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/groups/{group}/remove/{user}', [\App\Http\Controllers\GroupController::class, 'remove_member']);
 
     Route::get('/schedules/types', [\App\Http\Controllers\ScheduleController::class, 'getTypes']);
+    Route::get('/schedules/{schedule}/registrations', [\App\Http\Controllers\ScheduleController::class, 'getRegistrations']);
     Route::apiResource('/schedules', \App\Http\Controllers\ScheduleController::class);
+
+    Route::apiResource('/registrations/',  \App\Http\Controllers\RegistrationController::class);
 });
 
