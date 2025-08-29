@@ -12,10 +12,10 @@ class AuthController extends Controller
 {
     function redirect(): \Symfony\Component\HttpFoundation\RedirectResponse|\Illuminate\Http\RedirectResponse
     {
-        return \Laravel\Socialite\Facades\Socialite::driver('discord')->redirect();
+        return \Laravel\Socialite\Facades\Socialite::driver('discord')->stateless()->redirect();
     }
     function callback(Request $request){
-        $discordUser = Socialite::driver('discord')->user();
+        $discordUser = Socialite::driver('discord')->stateless()->user();
 
         /** @var User $user */
         $user = User::firstOrCreate(
