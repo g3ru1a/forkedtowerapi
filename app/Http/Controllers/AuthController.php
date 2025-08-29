@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
@@ -28,7 +29,8 @@ class AuthController extends Controller
         );
         $tokenExpireAt = now()->addDays((int) env('TOKEN_EXPIRE_DAYS', 1));
         $accessToken = $user->createToken('auth-token', ["*"], $tokenExpireAt)->plainTextToken;
-        return response()->json(['access_token' => $accessToken]);
+        return Redirect::away(env('POST_AUTH_REDIRECT', '').'?token='.$accessToken);
+//        return response()->json(['access_token' => $accessToken]);
     }
 
     function devAuth(Request $request){

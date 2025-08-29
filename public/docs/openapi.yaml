@@ -1,11 +1,11 @@
 openapi: 3.0.3
 info:
-  title: 'Laravel API Documentation'
+  title: 'ForkedTower API Documentation'
   description: ''
   version: 1.0.0
 servers:
   -
-    url: 'http://forkedtowerapi.test'
+    url: 'http://ftapi.site'
 tags:
   -
     name: Endpoints
@@ -43,3 +43,932 @@ paths:
       tags:
         - Endpoints
       security: []
+  /api/characters:
+    get:
+      summary: 'Display all characters'
+      operationId: displayAllCharacters
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: 'Store a new Character'
+      operationId: storeANewCharacter
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lodestone_id:
+                  type: number
+                  description: ''
+                  example: 4326.41688
+                  nullable: false
+              required:
+                - lodestone_id
+      security: []
+  '/api/characters/{id}':
+    get:
+      summary: "Get A Character's full information."
+      operationId: getACharactersFullInformation
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: 'Update the character data'
+      operationId: updateTheCharacterData
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lodestone_id:
+                  type: number
+                  description: ''
+                  example: 4326.41688
+                  nullable: false
+              required:
+                - lodestone_id
+      security: []
+    delete:
+      summary: 'Remove the specified resource from storage.'
+      operationId: removeTheSpecifiedResourceFromStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the character.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+  '/api/characters/search/{name}':
+    get:
+      summary: 'Search for characters stored in the DB'
+      operationId: searchForCharactersStoredInTheDB
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: name
+        description: ''
+        example: architecto
+        required: true
+        schema:
+          type: string
+  '/api/characters/verify/{lodestone_id}':
+    get:
+      summary: 'Verifiy the user owns the character'
+      operationId: verifiyTheUserOwnsTheCharacter
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: lodestone_id
+        description: 'The ID of the lodestone.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+  '/api/lodestone/search/{name}':
+    get:
+      summary: 'Run a search query on Nodestone by name'
+      operationId: runASearchQueryOnNodestoneByName
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: name
+        description: ''
+        example: architecto
+        required: true
+        schema:
+          type: string
+  '/api/lodestone/character/{lodestone_id}':
+    get:
+      summary: 'Search Nodestone for a specific character by its Lodestone ID'
+      operationId: searchNodestoneForASpecificCharacterByItsLodestoneID
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: lodestone_id
+        description: 'The ID of the lodestone.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+  /api/groups:
+    get:
+      summary: 'Display all groups'
+      operationId: displayAllGroups
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: 'Store a new group'
+      operationId: storeANewGroup
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: b
+                  nullable: false
+              required:
+                - name
+      security: []
+  '/api/groups/{id}':
+    get:
+      summary: 'Display the group details'
+      operationId: displayTheGroupDetails
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: 'Update the group info'
+      operationId: updateTheGroupInfo
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: b
+                  nullable: false
+              required:
+                - name
+      security: []
+    delete:
+      summary: 'Remove the group'
+      operationId: removeTheGroup
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the group.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+  '/api/groups/{group_id}/add/{user_id}':
+    post:
+      summary: 'Add a user to the group'
+      operationId: addAUserToTheGroup
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: group_id
+        description: 'The ID of the group.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+      -
+        in: path
+        name: user_id
+        description: 'The ID of the user.'
+        example: 0198ddda-151f-7010-adf0-964ba1845fc9
+        required: true
+        schema:
+          type: string
+  '/api/groups/{group_id}/remove/{user_id}':
+    post:
+      summary: 'Remove a user from the group'
+      operationId: removeAUserFromTheGroup
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: group_id
+        description: 'The ID of the group.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+      -
+        in: path
+        name: user_id
+        description: 'The ID of the user.'
+        example: 0198ddda-151f-7010-adf0-964ba1845fc9
+        required: true
+        schema:
+          type: string
+  /api/schedules/types:
+    get:
+      summary: 'Get Schedule Run Types'
+      operationId: getScheduleRunTypes
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  '/api/schedules/{schedule_id}/registrations':
+    get:
+      summary: 'Get all registrations for this schedule'
+      operationId: getAllRegistrationsForThisSchedule
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: schedule_id
+        description: 'The ID of the schedule.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+  /api/schedules:
+    get:
+      summary: 'Display all schedules'
+      operationId: displayAllSchedules
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: 'Create a new schedule'
+      operationId: createANewSchedule
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                group_id:
+                  type: string
+                  description: 'Must be a valid UUID. The <code>id</code> of an existing record in the groups table.'
+                  example: 6ff8f7f6-1eb3-3525-be4a-3932c805afed
+                  nullable: false
+                host_id:
+                  type: string
+                  description: 'Must be a valid UUID. The <code>id</code> of an existing record in the characters table.'
+                  example: 6b72fe4a-5b40-307c-bc24-f79acf9a1bb9
+                  nullable: false
+                public:
+                  type: boolean
+                  description: ''
+                  example: false
+                  nullable: false
+                date:
+                  type: string
+                  description: 'Must be a valid date in the format <code>Y-m-d</code>.'
+                  example: '2025-08-25'
+                  nullable: false
+                time:
+                  type: string
+                  description: 'Must be a valid date in the format <code>H:i</code>.'
+                  example: '16:58'
+                  nullable: false
+                description:
+                  type: string
+                  description: ''
+                  example: 'Eius et animi quos velit et.'
+                  nullable: true
+                registration_open:
+                  type: boolean
+                  description: ''
+                  example: true
+                  nullable: false
+                registration_deadline:
+                  type: string
+                  description: 'Must be a valid date in the format <code>Y-m-d H:i</code>.'
+                  example: '2025-08-25 16:58'
+                  nullable: true
+                type_id:
+                  type: string
+                  description: 'Must be a valid UUID. The <code>id</code> of an existing record in the run_types table.'
+                  example: 21c4122b-d554-3723-966c-6d723ea5293f
+                  nullable: false
+              required:
+                - group_id
+                - host_id
+                - public
+                - date
+                - time
+                - registration_open
+                - type_id
+      security: []
+  '/api/schedules/{id}':
+    get:
+      summary: 'Show the schedule details'
+      operationId: showTheScheduleDetails
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: "Update the schedule's info"
+      operationId: updateTheSchedulesInfo
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    delete:
+      summary: 'Yeet the schedule off a cliff'
+      operationId: yeetTheScheduleOffACliff
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the schedule.'
+        example: architecto
+        required: true
+        schema:
+          type: string
+  /api/registrations:
+    get:
+      summary: 'Display all registrations made by user'
+      operationId: displayAllRegistrationsMadeByUser
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: 'Create Registration'
+      operationId: createRegistration
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                schedule_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the schedules table.'
+                  example: architecto
+                  nullable: false
+                character_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the characters table.'
+                  example: architecto
+                  nullable: false
+                preferred_class:
+                  type: string
+                  description: ''
+                  example: architecto
+                  nullable: false
+                preferred_job:
+                  type: string
+                  description: ''
+                  example: architecto
+                  nullable: false
+                flex_classes:
+                  type: array
+                  description: ''
+                  example:
+                    - architecto
+                  items:
+                    type: string
+                flex_jobs:
+                  type: array
+                  description: ''
+                  example:
+                    - architecto
+                  items:
+                    type: string
+                can_lead:
+                  type: boolean
+                  description: ''
+                  example: false
+                  nullable: false
+                notes:
+                  type: string
+                  description: ''
+                  example: architecto
+                  nullable: true
+              required:
+                - schedule_id
+                - character_id
+                - preferred_class
+                - preferred_job
+                - flex_classes
+                - flex_jobs
+                - can_lead
+      security: []
+  '/api/registrations/{}':
+    get:
+      summary: "Show User's Registration"
+      operationId: showUsersRegistration
+      description: ''
+      parameters: []
+      responses:
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'The route api/registrations/architecto could not be found.'
+                properties:
+                  message:
+                    type: string
+                    example: 'The route api/registrations/architecto could not be found.'
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: 'Update Registration'
+      operationId: updateRegistration
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                schedule_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the schedules table.'
+                  example: architecto
+                  nullable: false
+                character_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the characters table.'
+                  example: architecto
+                  nullable: false
+                preferred_class:
+                  type: string
+                  description: ''
+                  example: architecto
+                  nullable: false
+                preferred_job:
+                  type: string
+                  description: ''
+                  example: architecto
+                  nullable: false
+                flex_classes:
+                  type: array
+                  description: ''
+                  example:
+                    - architecto
+                  items:
+                    type: string
+                flex_jobs:
+                  type: array
+                  description: ''
+                  example:
+                    - architecto
+                  items:
+                    type: string
+                can_lead:
+                  type: boolean
+                  description: ''
+                  example: true
+                  nullable: false
+                notes:
+                  type: string
+                  description: ''
+                  example: architecto
+                  nullable: true
+              required:
+                - schedule_id
+                - character_id
+                - preferred_class
+                - preferred_job
+                - flex_classes
+                - flex_jobs
+                - can_lead
+      security: []
+    delete:
+      summary: 'Remove the registration'
+      operationId: removeTheRegistration
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: ''
+        description: ''
+        example: architecto
+        required: true
+        schema:
+          type: string
+  /api/assignments:
+    post:
+      summary: 'Create a new assignment'
+      operationId: createANewAssignment
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                registration_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the registrations table.'
+                  example: architecto
+                  nullable: false
+                schedule_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the schedules table.'
+                  example: architecto
+                  nullable: false
+                user_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the users table.'
+                  example: architecto
+                  nullable: false
+                character_id:
+                  type: string
+                  description: 'The <code>id</code> of an existing record in the characters table.'
+                  example: architecto
+                  nullable: false
+                seat:
+                  type: integer
+                  description: ''
+                  example: 16
+                  nullable: false
+                class:
+                  type: string
+                  description: ''
+                  example: architecto
+                  nullable: false
+                job:
+                  type: string
+                  description: ''
+                  example: architecto
+                  nullable: false
+                is_lead:
+                  type: boolean
+                  description: ''
+                  example: true
+                  nullable: false
+                is_absent:
+                  type: boolean
+                  description: ''
+                  example: false
+                  nullable: false
+                did_participate:
+                  type: boolean
+                  description: ''
+                  example: true
+                  nullable: false
+              required:
+                - registration_id
+                - schedule_id
+                - user_id
+                - character_id
+                - seat
+                - class
+                - job
+      security: []
+  '/api/assignments/{id}':
+    put:
+      summary: 'Update the assignment'
+      operationId: updateTheAssignment
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                seat:
+                  type: integer
+                  description: ''
+                  example: 16
+                  nullable: false
+                class:
+                  type: string
+                  description: ''
+                  example: architecto
+                  nullable: false
+                job:
+                  type: string
+                  description: ''
+                  example: architecto
+                  nullable: false
+                is_lead:
+                  type: boolean
+                  description: ''
+                  example: false
+                  nullable: false
+                is_absent:
+                  type: boolean
+                  description: ''
+                  example: false
+                  nullable: false
+                did_participate:
+                  type: boolean
+                  description: ''
+                  example: true
+                  nullable: false
+              required:
+                - seat
+                - class
+                - job
+      security: []
+    delete:
+      summary: 'Remove the assignment'
+      operationId: removeTheAssignment
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the assignment.'
+        example: architecto
+        required: true
+        schema:
+          type: string
