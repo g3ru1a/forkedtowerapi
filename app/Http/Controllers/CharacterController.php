@@ -85,7 +85,7 @@ class CharacterController extends Controller
     public function index()
     {
         return CharacterResource::collection(
-            Character::where('verified', true)->with('user', 'occult_data')->paginate(30)
+            Character::where('user_id', auth()->user()->id)->where('verified', true)->with('user', 'occult_data')->paginate(30)
         );
     }
 
