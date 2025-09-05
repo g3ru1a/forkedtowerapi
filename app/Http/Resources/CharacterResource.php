@@ -25,6 +25,7 @@ class CharacterResource extends JsonResource
             'datacenter' => $this['datacenter'],
             'avatar_url' => $this['avatar_url'],
             'verified' => $this['verified'],
+            'verification_code' => $this['verification_code'],
             'occult_data' => OccultDataResource::make($this->whenLoaded('occult_data')),
             'phantom_jobs' => PhantomJobResource::collection($this->whenLoaded('phantom_jobs')),
             'deleted_at' => $this->when($this['deleted_at'] != null, $this['deleted_at']),

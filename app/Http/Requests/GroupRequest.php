@@ -23,6 +23,10 @@ class GroupRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'color' => 'string|max:255',
+            'badge_text' => 'required|string|max:4',
+            'gradient' => 'string|max:255',
+            'discord_invite' => 'string|max:255',
         ];
     }
 }

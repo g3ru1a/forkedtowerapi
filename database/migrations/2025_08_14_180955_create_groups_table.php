@@ -15,6 +15,10 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
             $table->string('name');
+            $table->string('color')->default('#FFFFFF');
+            $table->string('badge_text');
+            $table->string('gradient')->nullable();
+            $table->string('discord_invite')->nullable();
             $table->string('private_path');
             $table->timestamps();
             $table->softDeletes();

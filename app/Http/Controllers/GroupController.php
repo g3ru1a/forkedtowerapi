@@ -63,10 +63,8 @@ class GroupController extends Controller
     public function store(GroupRequest $request): GroupResource
     {
         $private_path = $this->random_base64url(10);
-        $group = new Group([
-            'name' => $request->get('name'),
-            'private_path' => $private_path,
-        ]);
+        $group = new Group($request->validated());
+        $group->private_path = $private_path;
         $group->owner()->associate(auth()->user());
         $group->saveOrFail();
         return GroupResource::make($group);
@@ -86,9 +84,7 @@ class GroupController extends Controller
     public function update(GroupRequest $request, Group $group): GroupResource
     {
         $this->authorize('update', $group);
-        $group->fill([
-            'name' => $request->get('name'),
-        ]);
+        $group->fill($request->validated());
         $group->saveOrFail();
         return GroupResource::make($group);
     }

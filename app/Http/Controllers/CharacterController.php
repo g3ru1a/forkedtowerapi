@@ -32,7 +32,7 @@ class CharacterController extends Controller
     }
 
     private static function GenerateVerificationCode(): string {
-        return 'ft_' . str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT);
+        return 'fp_' . str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT);
     }
 
     /**
@@ -96,6 +96,13 @@ class CharacterController extends Controller
     {
         //Cleanup the ID Param
         $lodestone_id = trim($request->get('lodestone_id'));
+        //Check If Character Already exists
+        $character = Character::where('lodestone_id', $lodestone_id)->first();
+        if($character){
+            //Load all data and return
+            $character = $character->load(['occult_data', 'phantom_jobs']);
+            return CharacterResource::make($character);
+        }
         //Fetch the Character data from Lodestone
         $lodestoneCharacter = NodestoneAPI::GetCharacter($lodestone_id);
         //Create the base model
@@ -171,11 +178,11 @@ class CharacterController extends Controller
      */
     public function destroy(Character $character): CharacterResource
     {
-        $response = $this->authorize('destroy', $character);
+        $response = $this->authorize('delete', $character);
         if($response->denied()){
-            abort(403, 'Unauthorized action.');
+            abort(403, 'Cannot execute action.');
         }
-        $character->delete();
+        $character->forceDelete();
         return CharacterResource::make($character);
     }
 }

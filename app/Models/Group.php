@@ -17,6 +17,10 @@ class Group extends Model
         'user_id',
         'name',
         'private_path',
+        'badge_text',
+        'color',
+        'gradient',
+        'discord_invite',
     ];
 
     public function owner(): \Illuminate\Database\Eloquent\Relations\BelongsTo
