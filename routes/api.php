@@ -8,7 +8,6 @@ if(app()->environment('local')) {
     Route::post('/auth/dev', [AuthController::class, 'devAuth']);
 }
 
-Route::get('/schedules/types', [\App\Http\Controllers\ScheduleController::class, 'getTypes']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [\App\Http\Controllers\UserController::class, 'getUser'])->middleware('auth:sanctum');
 
@@ -24,6 +23,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/groups/{group}/add/{user}', [\App\Http\Controllers\GroupController::class, 'add_member']);
     Route::post('/groups/{group}/remove/{user}', [\App\Http\Controllers\GroupController::class, 'remove_member']);
 
+    Route::get('/schedules/types', [\App\Http\Controllers\ScheduleController::class, 'getTypes']);
     Route::get('/schedules/{schedule}/registrations', [\App\Http\Controllers\ScheduleController::class, 'getRegistrations']);
     Route::apiResource('/schedules', \App\Http\Controllers\ScheduleController::class);
 
