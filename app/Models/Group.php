@@ -33,6 +33,11 @@ class Group extends Model
         return $this->belongsToMany(User::class, 'group_members', 'group_id', 'user_id');
     }
 
+    public function schedules(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Schedule::class);
+    }
+
     public function hasUser(User $user): bool
     {
         if ($this->user_id === $user->id) {

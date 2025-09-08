@@ -30,6 +30,11 @@ class GroupPolicy
         return true;
     }
 
+    public function viewSchedules(User $user, Group $group): bool
+    {
+        return $group->hasUser($user);
+    }
+
     /**
      * Determine whether the user can create models.
      */

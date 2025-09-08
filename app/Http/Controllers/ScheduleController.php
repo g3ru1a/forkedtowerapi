@@ -49,7 +49,7 @@ class ScheduleController extends Controller
      */
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $this->authorize('index', Schedule::class);
+        $this->authorize('view', Schedule::class);
         $schedules = Schedule::where('public', true)->paginate(30);
         return ScheduleResource::collection($schedules);
     }

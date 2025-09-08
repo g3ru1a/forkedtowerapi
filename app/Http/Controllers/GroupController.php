@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\GroupRequest;
 use App\Http\Resources\GroupResource;
+use App\Http\Resources\ScheduleResource;
 use App\Models\Group;
+use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
@@ -47,6 +49,16 @@ class GroupController extends Controller
         if($group->members->contains('id', $user->id))
             $group->members()->detach($user);
         return GroupResource::make($group->load('members'));
+    }
+
+    /**
+     * Display all schedules made by the group
+     */
+    public function schedules(Group $group): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        $this->authorize('viewSchedules', $group);
+        $schedules = $group->schedules()->paginate(30);
+        return ScheduleResource::collection($schedules);
     }
 
     /**

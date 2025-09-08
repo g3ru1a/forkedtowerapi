@@ -24,7 +24,7 @@ class CharacterController extends Controller
 
     private static function getPhantomJobsArray(): array
     {
-        $cacheKey = 'schedule-types';
+        $cacheKey = 'phantom-jobs';
         $ttl = now()->addDays(30);
         return \Cache::remember($cacheKey, $ttl, function () {
             return PhantomJob::query()->orderBy('name')->pluck('id', 'name')->toArray();
