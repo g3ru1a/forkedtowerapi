@@ -54,7 +54,7 @@ class GroupController extends Controller
      */
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        return GroupResource::collection(Group::with('owner')->paginate(30));
+        return GroupResource::collection(Group::where('user_id', auth()->user()->id)->with('owner')->get());
     }
 
     /**
