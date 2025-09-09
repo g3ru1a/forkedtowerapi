@@ -21,6 +21,7 @@ class UserResource extends JsonResource
             'handle' => $this['discord_username'],
             'avatar_url' => $this['discord_avatar_url'],
             'email' => $this['email'],
+            'characters' => CharacterResource::collection($this->whenLoaded('characters')),
             'bot_notifications' =>  $this['bot_notifications']
         ];
     }

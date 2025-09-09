@@ -28,6 +28,7 @@ class ScheduleRequest extends FormRequest
             'date'  => 'required|date_format:Y-m-d',
             'time'  => 'required|date_format:H:i',
             'description' => 'string|nullable',
+            'slots' => 'integer|nullable|in:8,24,48',
             'registration_open' => 'required|boolean',
             'registration_deadline' => 'nullable|date_format:Y-m-d H:i',
             'type_id' => 'required|uuid|exists:run_types,id',

@@ -15,39 +15,39 @@ class RunTypeSeeder extends Seeder
     {
         $types = [
             [
-                'name'      => 'Newbie Run',
+                'name'      => 'Forked Tower of Blood: Newbie Run',
                 'color_hex' => '#4CAF50', // medium green for fresh start
             ],
             [
-                'name'      => 'Boss2 Prog',
+                'name'      => 'Forked Tower of Blood: Boss2 Prog',
                 'color_hex' => '#81C784', // lighter green for progression
             ],
             [
-                'name'      => 'Boss2 Kill',
+                'name'      => 'Forked Tower of Blood: Boss2 Kill',
                 'color_hex' => '#388E3C', // darker green for victory
             ],
             [
-                'name'      => 'Boss3 Prog',
+                'name'      => 'Forked Tower of Blood: Boss3 Prog',
                 'color_hex' => '#64B5F6', // lighter blue for progression
             ],
             [
-                'name'      => 'Boss3 Kill',
+                'name'      => 'Forked Tower of Blood: Boss3 Kill',
                 'color_hex' => '#1976D2', // darker blue for victory
             ],
             [
-                'name'      => 'Boss4 Prog',
+                'name'      => 'Forked Tower of Blood: Boss4 Prog',
                 'color_hex' => '#FFB74D', // lighter orange for progression
             ],
             [
-                'name'      => 'Boss4 Kill',
+                'name'      => 'Forked Tower of Blood: Boss4 Kill',
                 'color_hex' => '#F57C00', // darker orange for victory
             ],
             [
-                'name'      => 'Reclears',
+                'name'      => 'Forked Tower of Blood: Reclears',
                 'color_hex' => '#BA68C8', // light lavender purple for routine runs
             ],
             [
-                'name'      => 'Marathon',
+                'name'      => 'Forked Tower of Blood: Marathon',
                 'color_hex' => '#8E24AA', // rich purple for standout sessions
             ],
         ];

@@ -17,7 +17,7 @@ class ScheduleResource extends JsonResource
         return [
             'id' => $this['id'],
             'group' => GroupResource::make($this->whenLoaded('group')),
-            'host' => UserResource::make($this->whenLoaded('host')),
+            'host' => CharacterResource::make($this->whenLoaded('host')),
             'type' => RunTypeResource::make($this->whenLoaded('type')),
             'public' => $this['public'],
             'date' => $this['date'],

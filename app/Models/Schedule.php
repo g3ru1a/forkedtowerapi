@@ -42,7 +42,7 @@ class Schedule extends Model
 
     public function host(): HasOne
     {
-        return $this->hasOne(User::class, 'id', 'host_id');
+        return $this->hasOne(Character::class, 'id', 'host_id');
     }
 
     public function assignments(): HasMany

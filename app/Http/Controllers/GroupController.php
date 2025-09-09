@@ -87,7 +87,7 @@ class GroupController extends Controller
      */
     public function show(Group $group): GroupResource
     {
-        return GroupResource::make($group->load('owner', 'members'));
+        return GroupResource::make($group->load('owner', 'members', 'owner.characters', 'members.characters'));
     }
 
     /**
