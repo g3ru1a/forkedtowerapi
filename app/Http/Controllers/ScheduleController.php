@@ -6,9 +6,11 @@ use App\Http\Requests\ScheduleRequest;
 use App\Http\Resources\RegistrationResource;
 use App\Http\Resources\RunTypeResource;
 use App\Http\Resources\ScheduleResource;
+use App\Http\Resources\SeatResource;
 use App\Models\Registration;
 use App\Models\RunType;
 use App\Models\Schedule;
+use App\Models\Seat;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
@@ -44,6 +46,12 @@ class ScheduleController extends Controller
         return RegistrationResource::collection($registrations);
     }
 
+    public function getSeats(Schedule $schedule): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        $this->authorize('viewAnySeat', $schedule);
+        return SeatResource::collection($schedule->seats);
+    }
+
     /**
      * Display all schedules
      */
@@ -56,12 +64,23 @@ class ScheduleController extends Controller
 
     /**
      * Create a new schedule
+     * @throws \Throwable
      */
     public function store(ScheduleRequest $request): ScheduleResource
     {
         $this->authorize('create', Schedule::class);
         $schedule = new Schedule($request->validated());
         $schedule->saveOrFail();
+        $schedule->refresh();
+
+        $seat_count = $schedule->getAttribute('seat_count');
+        for ($i = 0; $i < $seat_count; $i++) {
+            $seat = new Seat([
+                'schedule_id' => $schedule->getAttribute('id'),
+                'number' => $i
+            ]);
+        }
+
         return ScheduleResource::make($schedule);
     }
 

@@ -26,8 +26,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/schedules/types', [\App\Http\Controllers\ScheduleController::class, 'getTypes']);
     Route::get('/schedules/{schedule}/registrations', [\App\Http\Controllers\ScheduleController::class, 'getRegistrations']);
     Route::apiResource('/schedules', \App\Http\Controllers\ScheduleController::class);
+    Route::apiResource('/seats', \App\Http\Controllers\SeatController::class);
 
     Route::apiResource('/registrations/',  \App\Http\Controllers\RegistrationController::class);
-    Route::apiResource('/assignments', \App\Http\Controllers\AssignmentController::class);
+//    Route::apiResource('/assignments', \App\Http\Controllers\AssignmentController::class);
+
+    Route::get('/classes', [\App\Http\Controllers\FFClassController::class, 'index']);
+    Route::get('/fights', [\App\Http\Controllers\FightController::class, 'index']);
+
 });
 

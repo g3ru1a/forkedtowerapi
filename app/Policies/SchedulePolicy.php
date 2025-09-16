@@ -25,6 +25,12 @@ class SchedulePolicy
     {
         return $schedule->group->hasUser($user);
     }
+
+    public function viewAnySeat(User $user, Schedule $schedule): bool
+    {
+        return $schedule->public ? true : $schedule->group->hasUser($user);
+    }
+
     /**
      * Determine whether the user can view the model.
      */

@@ -15,5 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(PhantomJobSeeder::class);
         $this->call(RunTypeSeeder::class);
+        $this->call(FFClassSeeder::class);
+        $this->call(FightSeeder::class);
     }
 }

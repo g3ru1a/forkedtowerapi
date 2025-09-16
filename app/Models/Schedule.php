@@ -16,6 +16,7 @@ class Schedule extends Model
 
     protected $fillable = [
         'group_id',
+        'host_id',
         'public',
         'date',
         'time',
@@ -23,6 +24,8 @@ class Schedule extends Model
         'registration_open',
         'registration_deadline',
         'type_id',
+        'fight_id',
+        'seat_count'
     ];
 
     protected $casts = [
@@ -45,8 +48,13 @@ class Schedule extends Model
         return $this->hasOne(Character::class, 'id', 'host_id');
     }
 
-    public function assignments(): HasMany
+    public function seats(): HasMany
     {
-        return $this->hasMany(Assignment::class);
+        return $this->hasMany(Seat::class);
+    }
+
+    public function fight(): HasOne
+    {
+        return $this->hasOne(Fight::class);
     }
 }

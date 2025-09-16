@@ -21,9 +21,10 @@ return new class extends Migration
             $table->time('time');
             $table->text('description');
             $table->boolean('registration_open')->default(false);
-            $table->timestamp('registration_deadline')->nullable();
+            $table->timestamp('duration_hours')->default(3);
             // Currently only 48 for forked tower, this can be adjusted to support different content.
-            $table->integer('slots')->default(48);
+            $table->foreignUuid('fight_id')->constrained();
+            $table->integer('seat_count')->default(48);
             $table->timestamps();
             $table->softDeletes();
         });

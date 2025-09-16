@@ -19,13 +19,14 @@ class ScheduleResource extends JsonResource
             'group' => GroupResource::make($this->whenLoaded('group')),
             'host' => CharacterResource::make($this->whenLoaded('host')),
             'type' => RunTypeResource::make($this->whenLoaded('type')),
+            'fight' => FightResource::collection($this->whenLoaded('fight')),
             'public' => $this['public'],
             'date' => $this['date'],
             'time' => $this['time'],
             'description' => $this['description'],
             'registration_open' => $this['registration_open'],
-            'registration_deadline' => $this['registration_deadline'],
-            'slots' => $this['slots'],
+            'duration_hours' => $this['duration_hours'],
+            'seat_count' => $this['seat_count'],
             'deleted_at'=> $this->whenNotNull($this['deleted_at']),
         ];
     }

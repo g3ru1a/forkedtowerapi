@@ -24,13 +24,14 @@ class ScheduleRequest extends FormRequest
         return [
             'group_id' => 'required|uuid|exists:groups,id',
             'host_id' => 'required|uuid|exists:characters,id',
+            'fight_id' => 'required|uuid|exists:fights,id',
             'public' =>  'required|boolean',
             'date'  => 'required|date_format:Y-m-d',
             'time'  => 'required|date_format:H:i',
             'description' => 'string|nullable',
-            'slots' => 'integer|nullable|in:8,24,48',
+            'seat_count' => 'integer|nullable|in:8,24,48',
             'registration_open' => 'required|boolean',
-            'registration_deadline' => 'nullable|date_format:Y-m-d H:i',
+            'duration_hours' => 'nullable|integer|max:24|min:1',
             'type_id' => 'required|uuid|exists:run_types,id',
         ];
     }
