@@ -33,6 +33,11 @@ class Schedule extends Model
         'time' => 'datetime:H:i',
     ];
 
+    public function fight(): BelongsTo
+    {
+        return $this->belongsTo(Fight::class);
+    }
+
     public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class);
@@ -53,8 +58,4 @@ class Schedule extends Model
         return $this->hasMany(Seat::class);
     }
 
-    public function fight(): HasOne
-    {
-        return $this->hasOne(Fight::class);
-    }
 }

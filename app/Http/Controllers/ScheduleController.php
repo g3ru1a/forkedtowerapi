@@ -7,6 +7,7 @@ use App\Http\Resources\RegistrationResource;
 use App\Http\Resources\RunTypeResource;
 use App\Http\Resources\ScheduleResource;
 use App\Http\Resources\SeatResource;
+use App\Models\Group;
 use App\Models\Registration;
 use App\Models\RunType;
 use App\Models\Schedule;
@@ -66,9 +67,13 @@ class ScheduleController extends Controller
      * Create a new schedule
      * @throws \Throwable
      */
-    public function store(ScheduleRequest $request): ScheduleResource
+    public function store(ScheduleRequest $request)
     {
-        $this->authorize('create', Schedule::class);
+        $gid = $request->validated()["group_id"];
+        $group = Group::findOrFail($gid);
+        if(!$group->hasUser(auth()->user())) {
+            return response()->unauthorized();
+        }
         $schedule = new Schedule($request->validated());
         $schedule->saveOrFail();
         $schedule->refresh();
@@ -80,7 +85,7 @@ class ScheduleController extends Controller
                 'number' => $i
             ]);
         }
-
+        $schedule->load(['type', 'host', 'fight']);
         return ScheduleResource::make($schedule);
     }
 

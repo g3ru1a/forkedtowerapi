@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('max_players');
             $table->text('description');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

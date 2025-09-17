@@ -57,7 +57,11 @@ class GroupController extends Controller
     public function schedules(Group $group): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $this->authorize('viewSchedules', $group);
-        $schedules = $group->schedules()->paginate(30);
+        $schedules = $group->schedules()
+            ->with(['type', 'host', 'fight'])
+            ->orderBy('date', 'asc')
+            ->orderBy('time', 'asc')
+            ->get();
         return ScheduleResource::collection($schedules);
     }
 

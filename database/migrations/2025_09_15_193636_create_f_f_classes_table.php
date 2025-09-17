@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('type', ['Tank', 'Healer', 'Melee DPS', 'Physical Ranged DPS', 'Magical Ranged DPS']);
             $table->string('flat_icon_url')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

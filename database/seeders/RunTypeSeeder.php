@@ -15,39 +15,39 @@ class RunTypeSeeder extends Seeder
     {
         $types = [
             [
-                'name'      => 'Forked Tower of Blood: Newbie Run',
+                'name'      => 'FToB: Newbie Run',
                 'color_hex' => '#4CAF50', // medium green for fresh start
             ],
             [
-                'name'      => 'Forked Tower of Blood: Boss2 Prog',
+                'name'      => 'FToB: Boss2 Prog',
                 'color_hex' => '#81C784', // lighter green for progression
             ],
             [
-                'name'      => 'Forked Tower of Blood: Boss2 Kill',
+                'name'      => 'FToB: Boss2 Kill',
                 'color_hex' => '#388E3C', // darker green for victory
             ],
             [
-                'name'      => 'Forked Tower of Blood: Boss3 Prog',
+                'name'      => 'FToB: Boss3 Prog',
                 'color_hex' => '#64B5F6', // lighter blue for progression
             ],
             [
-                'name'      => 'Forked Tower of Blood: Boss3 Kill',
+                'name'      => 'FToB: Boss3 Kill',
                 'color_hex' => '#1976D2', // darker blue for victory
             ],
             [
-                'name'      => 'Forked Tower of Blood: Boss4 Prog',
+                'name'      => 'FToB: Boss4 Prog',
                 'color_hex' => '#FFB74D', // lighter orange for progression
             ],
             [
-                'name'      => 'Forked Tower of Blood: Boss4 Kill',
+                'name'      => 'FToB: Boss4 Kill',
                 'color_hex' => '#F57C00', // darker orange for victory
             ],
             [
-                'name'      => 'Forked Tower of Blood: Reclears',
+                'name'      => 'FToB: Reclears',
                 'color_hex' => '#BA68C8', // light lavender purple for routine runs
             ],
             [
-                'name'      => 'Forked Tower of Blood: Marathon',
+                'name'      => 'FToB: Marathon',
                 'color_hex' => '#8E24AA', // rich purple for standout sessions
             ],
         ];
