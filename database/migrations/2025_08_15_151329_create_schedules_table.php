@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('date');
             $table->time('time');
             $table->text('description')->nullable();
-            $table->boolean('registration_open')->default(false);
+            $table->boolean('require_registration')->default(false);
             $table->integer('duration_hours')->default(3);
             // Currently only 48 for forked tower, this can be adjusted to support different content.
             $table->foreignUuid('fight_id')->constrained();

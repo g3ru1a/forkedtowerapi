@@ -67,12 +67,12 @@ class ScheduleController extends Controller
      * Create a new schedule
      * @throws \Throwable
      */
-    public function store(ScheduleRequest $request)
+    public function store(ScheduleRequest $request): ScheduleResource|\Illuminate\Http\JsonResponse
     {
         $gid = $request->validated()["group_id"];
         $group = Group::findOrFail($gid);
         if(!$group->hasUser(auth()->user())) {
-            return response()->unauthorized();
+            return response()->json(["message" => "You don't have permission to access this group"], 403);
         }
         $schedule = new Schedule($request->validated());
         $schedule->saveOrFail();

@@ -24,7 +24,7 @@ class ScheduleResource extends JsonResource
             'date' => $this['date'],
             'time' => $this['time'],
             'description' => $this['description'],
-            'registration_open' => $this['registration_open'],
+            'require_registration' => $this['require_registration'],
             'duration_hours' => $this['duration_hours'],
             'seat_count' => $this['seat_count'],
             'deleted_at'=> $this->whenNotNull($this['deleted_at']),

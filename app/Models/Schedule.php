@@ -21,8 +21,8 @@ class Schedule extends Model
         'date',
         'time',
         'description',
-        'registration_open',
-        'registration_deadline',
+        'require_registration',
+        'duration_hours',
         'type_id',
         'fight_id',
         'seat_count'
