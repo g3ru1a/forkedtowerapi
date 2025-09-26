@@ -23,22 +23,19 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $discordId = $this->faker->unique()->numerify('18###############');
+
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'id' => (string) Str::uuid(),
+            'discord_id' => $discordId,
+            'discord_username' => $this->faker->userName,
+            'discord_nickname' => $this->faker->optional()->firstName,
+            'discord_avatar_url' => "https://cdn.discordapp.com/avatars/{$discordId}/" . Str::random(32) . ".png",
+            'email' => $this->faker->unique()->safeEmail,
+            'bot_notifications' => $this->faker->boolean,
+            'linked_at' => $this->faker->optional()->dateTime,
+            'is_admin' => $this->faker->boolean(10), // 10% chance of admin
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
-    }
 }

@@ -20,6 +20,7 @@ class ScheduleResource extends JsonResource
             'host' => CharacterResource::make($this->whenLoaded('host')),
             'type' => RunTypeResource::make($this->whenLoaded('type')),
             'fight' => FightResource::make($this->whenLoaded('fight')),
+            'seats' => SeatSimpleResource::collection($this->whenLoaded('seats')),
             'public' => $this['public'],
             'date' => $this['date'],
             'time' => $this['time'],
@@ -27,6 +28,9 @@ class ScheduleResource extends JsonResource
             'require_registration' => $this['require_registration'],
             'duration_hours' => $this['duration_hours'],
             'seat_count' => $this['seat_count'],
+            'status' => $this['status'],
+            'recruiting_count' => $this->whenNotNull($this['recruiting_count']),
+            'filled_count' => $this->whenNotNull($this['filled_count']),
             'deleted_at'=> $this->whenNotNull($this['deleted_at']),
         ];
     }

@@ -34,9 +34,9 @@ class Seat extends Model
         return $this->hasOne(Character::class);
     }
 
-    public function phantomJob(): HasOne
+    public function phantom_job(): BelongsTo
     {
-        return $this->hasOne(PhantomJob::class);
+        return $this->belongsTo(PhantomJob::class);
     }
 
     public function registration(): HasOne

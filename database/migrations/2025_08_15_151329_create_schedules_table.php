@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->boolean('require_registration')->default(false);
             $table->integer('duration_hours')->default(3);
+            $table->enum('status', ['planned', 'scheduled', 'recruiting', 'ongoing', 'finished', 'cancelled'])->default('planned');
             // Currently only 48 for forked tower, this can be adjusted to support different content.
             $table->foreignUuid('fight_id')->constrained();
             $table->integer('seat_count')->default(48);

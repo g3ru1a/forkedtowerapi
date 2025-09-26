@@ -6,6 +6,7 @@ use App\Http\Requests\ScheduleRequest;
 use App\Http\Resources\RegistrationResource;
 use App\Http\Resources\RunTypeResource;
 use App\Http\Resources\ScheduleResource;
+use App\Http\Resources\ScheduleSummary;
 use App\Http\Resources\SeatResource;
 use App\Models\Group;
 use App\Models\Registration;
@@ -54,6 +55,58 @@ class ScheduleController extends Controller
     }
 
     /**
+     * Display all schedules made by the group
+     */
+    public function groupSchedules(Group $group): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    {
+        $this->authorize('viewSchedules', $group);
+        $schedules = $group->schedules()
+            ->with(['type', 'host', 'fight', 'seats'])
+            ->orderBy('date', 'asc')
+            ->orderBy('time', 'asc')
+            ->limit(50)
+            ->get();
+        return ScheduleResource::collection($schedules);
+    }
+
+    /**
+     * Display a info summary of the groups schedules
+     */
+    public function groupSchedulesSummary(Group $group): ScheduleSummary
+    {
+        $this->authorize('viewSchedules', $group);
+        $group = Group::withCount([
+            'schedules as total',
+            'schedules as recruiting_count' => function ($query) {
+                $query->whereHas('registrations', function ($q) {
+                    $q->where('status', 'pending');
+                });
+            },
+            'schedules as active_schedules_count' => fn($q) => $q->where('status', '!=', 'finished'),
+        ])->find($group->id);
+        return ScheduleSummary::make($group);
+    }
+
+    /**
+     * Get the groups upcomming schedule
+     */
+    public function groupSchedulesNext(Group $group): ScheduleResource
+    {
+        $this->authorize('viewSchedules', $group);
+        $schedules = $group->schedules()
+            ->whereRaw("(date + time) > NOW()")
+            ->orderByRaw("(date + time)")
+            ->withCount([
+                'registrations as recruiting_count' => fn($q) => $q->where('status', 'pending'),
+                'seats as filled_count' => fn($q) => $q->whereNotNull('character_id'),
+            ])
+            ->with(['type', 'host', 'fight', 'seats.ffclass', 'seats.phantom_job'])
+            ->first();
+        return ScheduleResource::make($schedules);
+    }
+
+
+    /**
      * Display all schedules
      */
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
@@ -84,6 +137,7 @@ class ScheduleController extends Controller
                 'schedule_id' => $schedule->getAttribute('id'),
                 'number' => $i
             ]);
+            $seat->saveOrFail();
         }
         $schedule->load(['type', 'host', 'fight']);
         return ScheduleResource::make($schedule);

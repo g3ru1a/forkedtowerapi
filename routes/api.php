@@ -19,12 +19,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/lodestone/character/{lodestone_id}', [\App\Http\Controllers\NodestoneController::class, 'find']);
 
     Route::apiResource('/groups', \App\Http\Controllers\GroupController::class);
-    Route::get('/groups/{group}/schedules', [\App\Http\Controllers\GroupController::class, 'schedules']);
     Route::post('/groups/{group}/add/{user}', [\App\Http\Controllers\GroupController::class, 'add_member']);
     Route::post('/groups/{group}/remove/{user}', [\App\Http\Controllers\GroupController::class, 'remove_member']);
 
     Route::get('/schedules/types', [\App\Http\Controllers\ScheduleController::class, 'getTypes']);
     Route::get('/schedules/{schedule}/registrations', [\App\Http\Controllers\ScheduleController::class, 'getRegistrations']);
+    Route::get('/schedules/groups/{group}', [\App\Http\Controllers\ScheduleController::class, 'groupSchedules']);
+    Route::get('/schedules/groups/{group}/summary', [\App\Http\Controllers\ScheduleController::class, 'groupSchedulesSummary']);
+    Route::get('/schedules/groups/{group}/next', [\App\Http\Controllers\ScheduleController::class, 'groupSchedulesNext']);
     Route::apiResource('/schedules', \App\Http\Controllers\ScheduleController::class);
     Route::apiResource('/seats', \App\Http\Controllers\SeatController::class);
 

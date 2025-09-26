@@ -25,7 +25,8 @@ class Schedule extends Model
         'duration_hours',
         'type_id',
         'fight_id',
-        'seat_count'
+        'seat_count',
+        'status'
     ];
 
     protected $casts = [
@@ -56,6 +57,11 @@ class Schedule extends Model
     public function seats(): HasMany
     {
         return $this->hasMany(Seat::class);
+    }
+
+    public function registrations(): HasMany
+    {
+        return $this->hasMany(Registration::class);
     }
 
 }
