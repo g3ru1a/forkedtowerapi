@@ -80,7 +80,7 @@ class CharacterController extends Controller
     }
 
     /**
-     * Display all characters
+     * Display all characters owned by the user
      */
     public function index()
     {

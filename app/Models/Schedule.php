@@ -34,6 +34,27 @@ class Schedule extends Model
         'time' => 'datetime:H:i',
     ];
 
+    protected static function booted(): void
+    {
+
+        // runs AFTER insert (good for side-effects)
+        static::created(function (Schedule $schedule) {
+            if(!$schedule->getAttribute('public')) {
+                $schedule->private_key = $schedule->group->private_path . '-' . str()->random(16);
+                $schedule->saveOrFail();
+            }
+            $seat_count = $schedule->getAttribute('seat_count');
+            for ($i = 0; $i < $seat_count; $i++) {
+                $seat = new Seat([
+                    'schedule_id' => $schedule->getAttribute('id'),
+                    'number' => $i
+                ]);
+                $seat->saveOrFail();
+            }
+        });
+    }
+
+
     public function fight(): BelongsTo
     {
         return $this->belongsTo(Fight::class);

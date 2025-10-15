@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignUuid('host_id')->constrained('characters', 'id')->cascadeOnDelete();
             $table->foreignUuid('type_id')->constrained('run_types', 'id');
             $table->boolean('public')->default(false);
+            $table->string('private_key')->nullable();
             $table->date('date');
             $table->time('time');
             $table->text('description')->nullable();

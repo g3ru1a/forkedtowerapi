@@ -15,6 +15,7 @@ use App\Models\Schedule;
 use App\Models\Seat;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -67,6 +68,22 @@ class ScheduleController extends Controller
             ->limit(50)
             ->get();
         return ScheduleResource::collection($schedules);
+    }
+
+    public function canRegister(Schedule $schedule, ?string $secret = null): ScheduleResource | JsonResponse {
+        $passed = false;
+        if($schedule->public) $passed = true;
+        else if($schedule->private_key === $secret) $passed = true;
+        if(!$passed) return response()->json(['message' => 'Unauthorized'], 403);
+
+        $sch = Schedule::where('id', $schedule->id)
+            ->withCount([
+                'registrations as recruiting_count' => fn($q) => $q->where('status', 'pending'),
+                'seats as filled_count' => fn($q) => $q->whereNotNull('character_id'),
+            ])
+            ->with(['type', 'group', 'host', 'fight', 'seats.ffclass', 'seats.phantom_job'])
+            ->first();
+        return ScheduleResource::make($sch);
     }
 
     /**
@@ -130,15 +147,6 @@ class ScheduleController extends Controller
         $schedule = new Schedule($request->validated());
         $schedule->saveOrFail();
         $schedule->refresh();
-
-        $seat_count = $schedule->getAttribute('seat_count');
-        for ($i = 0; $i < $seat_count; $i++) {
-            $seat = new Seat([
-                'schedule_id' => $schedule->getAttribute('id'),
-                'number' => $i
-            ]);
-            $seat->saveOrFail();
-        }
         $schedule->load(['type', 'host', 'fight']);
         return ScheduleResource::make($schedule);
     }

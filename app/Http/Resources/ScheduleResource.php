@@ -22,6 +22,7 @@ class ScheduleResource extends JsonResource
             'fight' => FightResource::make($this->whenLoaded('fight')),
             'seats' => SeatSimpleResource::collection($this->whenLoaded('seats')),
             'public' => $this['public'],
+            'private_key' => $this->whenNotNull($this['private_key']),
             'date' => $this['date'],
             'time' => $this['time'],
             'description' => $this['description'],

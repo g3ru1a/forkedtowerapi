@@ -30,7 +30,9 @@ class RegistrationRequest extends FormRequest
             'flex_jobs' => 'required|array',
             'flex_classes.*' => 'required|string',
             'flex_jobs.*' => 'required|string',
-            'can_lead' => 'required|boolean',
+            'can_solo_heal'=> 'required|boolean',
+            'can_english'=> 'required|boolean',
+            'can_markers'=> 'required|boolean',
             'notes' => 'nullable|string',
         ];
     }

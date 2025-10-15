@@ -63,15 +63,16 @@ class DatabaseSeeder extends Seeder
 
         Schedule::factory()->count(1000)->create([
             'host_id' => $characterId,
-        ])->each(function (Schedule $schedule) {
-            $seat_count = $schedule->getAttribute('seat_count');
-            for ($i = 0; $i < $seat_count; $i++) {
-                $seat = new Seat([
-                    'schedule_id' => $schedule->getAttribute('id'),
-                    'number' => $i
-                ]);
-                $seat->saveOrFail();
-            }
-        });
+        ]);
+//            ->each(function (Schedule $schedule) {
+//            $seat_count = $schedule->getAttribute('seat_count');
+//            for ($i = 0; $i < $seat_count; $i++) {
+//                $seat = new Seat([
+//                    'schedule_id' => $schedule->getAttribute('id'),
+//                    'number' => $i
+//                ]);
+//                $seat->saveOrFail();
+//            }
+//        });
     }
 }

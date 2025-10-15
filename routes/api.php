@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PhantomJobController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/schedules/groups/{group}', [\App\Http\Controllers\ScheduleController::class, 'groupSchedules']);
     Route::get('/schedules/groups/{group}/summary', [\App\Http\Controllers\ScheduleController::class, 'groupSchedulesSummary']);
     Route::get('/schedules/groups/{group}/next', [\App\Http\Controllers\ScheduleController::class, 'groupSchedulesNext']);
+    Route::get('/schedules/verify/{schedule}/{secret?}', [\App\Http\Controllers\ScheduleController::class, 'canRegister']);
     Route::apiResource('/schedules', \App\Http\Controllers\ScheduleController::class);
     Route::apiResource('/seats', \App\Http\Controllers\SeatController::class);
 
@@ -34,6 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
 //    Route::apiResource('/assignments', \App\Http\Controllers\AssignmentController::class);
 
     Route::get('/classes', [\App\Http\Controllers\FFClassController::class, 'index']);
+    Route::get('/phantomjobs', [PhantomJobController::class, 'index']);
     Route::get('/fights', [\App\Http\Controllers\FightController::class, 'index']);
 
 });

@@ -43,6 +43,17 @@ class SchedulePolicy
     }
 
     /**
+     * Determine whether the user can view the model.
+     */
+    public function show(User $user, Schedule $schedule): bool
+    {
+        if(!$schedule->public){
+            return $schedule->group->hasUser($user);
+        }
+        return true;
+    }
+
+    /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool

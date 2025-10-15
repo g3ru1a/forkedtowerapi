@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('preferred_job');
             $table->string('flex_classes')->nullable();
             $table->string('flex_jobs')->nullable();
-            $table->boolean('can_lead')->default(false);
+            $table->boolean('can_solo_heal')->default(false);
+            $table->boolean('can_english')->default(false);
+            $table->boolean('can_markers')->default(false);
             $table->text('notes')->nullable();
             $table->string('status')->default('pending');
             $table->timestamps();
