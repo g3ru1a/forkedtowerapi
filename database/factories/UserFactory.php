@@ -29,11 +29,11 @@ class UserFactory extends Factory
             'id' => (string) Str::uuid(),
             'discord_id' => $discordId,
             'discord_username' => $this->faker->userName,
-            'discord_nickname' => $this->faker->optional()->firstName,
+            'discord_nickname' => $this->faker->firstName,
             'discord_avatar_url' => "https://cdn.discordapp.com/avatars/{$discordId}/" . Str::random(32) . ".png",
             'email' => $this->faker->unique()->safeEmail,
             'bot_notifications' => $this->faker->boolean,
-            'linked_at' => $this->faker->optional()->dateTime,
+            'linked_at' => $this->faker->dateTime,
             'is_admin' => $this->faker->boolean(10), // 10% chance of admin
         ];
     }

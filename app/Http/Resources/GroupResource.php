@@ -24,7 +24,9 @@ class GroupResource extends JsonResource
             'discord_invite' => $this['discord_invite'],
             'owner' => UserResource::make($this->owner),
             'members' => UserResource::collection($this->whenLoaded('members')),
-            'deleted_at' => $this->whenNotNull('deleted_at'),
+            'registrations' => $this->whenNotNull($this['registrations_count']),
+            'participants' => $this->whenNotNull($this['unique_characters_count']),
+            'deleted_at' => $this->whenNotNull($this['deleted_at']),
         ];
     }
 }

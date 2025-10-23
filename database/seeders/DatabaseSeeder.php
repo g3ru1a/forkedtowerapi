@@ -74,5 +74,9 @@ class DatabaseSeeder extends Seeder
 //                $seat->saveOrFail();
 //            }
 //        });
+
+        Character::factory()->count(1000)->create();
+
+        $this->call(RegistrationSeeder::class);
     }
 }

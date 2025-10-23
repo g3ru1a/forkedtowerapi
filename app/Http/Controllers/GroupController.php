@@ -56,7 +56,37 @@ class GroupController extends Controller
      */
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        return GroupResource::collection(Group::where('user_id', auth()->user()->id)->with('owner')->get());
+        $userId = auth()->id(); // or pass $user
+
+        $groups = Group::query()
+            ->where(function ($query) use ($userId) {
+                $query->where('user_id', $userId)
+                    ->orWhereIn('id', function ($sub) use ($userId) {
+                        $sub->select('group_id')
+                            ->from('group_members')
+                            ->where('user_id', $userId);
+                    });
+            })
+            ->select('groups.*')
+
+            // Unique characters via slots → schedules
+            ->selectSub(function ($query) {
+                $query->from('seats')
+                    ->join('schedules', 'seats.schedule_id', '=', 'schedules.id')
+                    ->whereColumn('schedules.group_id', 'groups.id')
+                    ->selectRaw('COUNT(DISTINCT seats.character_id)');
+            }, 'unique_characters_count')
+
+            // Count of registrations via schedules
+            ->withCount([
+                'schedules as registrations_count' => function ($q) {
+                    $q->join('registrations', 'schedules.id', '=', 'registrations.schedule_id');
+                }
+            ])
+            ->get();
+
+
+        return GroupResource::collection($groups);
     }
 
     /**

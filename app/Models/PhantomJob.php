@@ -27,4 +27,9 @@ class PhantomJob extends Model
             ])
             ->withTimestamps();
     }
+
+    public function registrations(): BelongsToMany
+    {
+        return $this->belongsToMany(Registration::class, 'registration_flex_jobs', 'job_id', 'registration_id');
+    }
 }

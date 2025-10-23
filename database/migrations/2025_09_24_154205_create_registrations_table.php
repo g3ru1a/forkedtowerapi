@@ -16,10 +16,8 @@ return new class extends Migration
             $table->foreignUuid('schedule_id')->constrained('schedules')->cascadeOnDelete();
             $table->foreignUuid('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignUuid('character_id')->constrained('characters')->cascadeOnDelete();
-            $table->string('preferred_class');
-            $table->string('preferred_job');
-            $table->string('flex_classes')->nullable();
-            $table->string('flex_jobs')->nullable();
+            $table->foreignUuid('preferred_class_id')->constrained('f_f_classes')->cascadeOnDelete();
+            $table->foreignUuid('preferred_job_id')->constrained('phantom_jobs')->cascadeOnDelete();
             $table->boolean('can_solo_heal')->default(false);
             $table->boolean('can_english')->default(false);
             $table->boolean('can_markers')->default(false);
@@ -27,6 +25,20 @@ return new class extends Migration
             $table->string('status')->default('pending');
             $table->timestamps();
             $table->softDeletes();
+        });
+
+        Schema::create('registration_flex_classes', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->foreignUuid('registration_id')->constrained('registrations')->cascadeOnDelete();
+            $table->foreignUuid('class_id')->constrained('f_f_classes')->cascadeOnDelete();
+            $table->timestamps();
+        });
+
+        Schema::create('registration_flex_jobs', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->foreignUuid('registration_id')->constrained('registrations')->cascadeOnDelete();
+            $table->foreignUuid('job_id')->constrained('phantom_jobs')->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 
@@ -36,5 +48,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('registrations');
+        Schema::dropIfExists('registration_flex_classes');
+        Schema::dropIfExists('registration_flex_jobs');
     }
 };

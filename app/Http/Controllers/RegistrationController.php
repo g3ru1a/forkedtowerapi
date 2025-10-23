@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RegistrationRequest;
 use App\Http\Resources\RegistrationResource;
+use App\Http\Resources\ScheduleResource;
 use App\Models\Registration;
+use App\Models\Schedule;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class RegistrationController extends Controller
@@ -25,18 +28,33 @@ class RegistrationController extends Controller
      * Create Registration
      * @throws \Throwable
      */
-    public function store(RegistrationRequest $request): RegistrationResource
+    public function store(RegistrationRequest $request): RegistrationResource | JsonResponse
     {
         $this->authorize('create', Registration::class);
 
         $data = $request->validated();
-        $data['flex_classes'] = join(',', $data['flex_classes']);
-        $data['flex_jobs'] = join(',', $data['flex_jobs']);
+        //Validate that the user actually has access to this schedule
+        // (preventing people from skipping the frontend schedule check)
+        $schedule = Schedule::findOrFail($data['schedule_id']);
+        if(!$schedule->public && array_key_exists('schedule_secret', $data) && $schedule->private_key !== $data['schedule_secret']) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
 
         $registration = new Registration($data);
         $registration->user()->associate(auth()->user());
         $registration->saveOrFail();
 
+        foreach ($data['flex_classes'] as $class) {
+            $registration->flex_classes()->attach($class);
+        }
+
+        foreach ($data['flex_jobs'] as $job) {
+            $registration->flex_jobs()->attach($job);
+        }
+        $registration->refresh();
+        $registration->loadMissing(
+            ['flex_classes', 'flex_jobs', 'preferred_job', 'preferred_class', 'schedule', 'character', 'user']
+        );
         return RegistrationResource::make($registration);
     }
 
@@ -49,7 +67,7 @@ class RegistrationController extends Controller
         $this->authorize('view', $registration);
 
         $registration->load(
-            'schedule','user','character'
+            'flex_classes', 'flex_jobs', 'preferred_job', 'preferred_class', 'schedule', 'character', 'user'
         );
         return RegistrationResource::make($registration);
     }

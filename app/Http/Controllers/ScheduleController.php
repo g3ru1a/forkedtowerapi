@@ -45,7 +45,9 @@ class ScheduleController extends Controller
     public function getRegistrations(Schedule $schedule): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $this->authorize('viewAnyRegistration', $schedule);
-        $registrations = Registration::where('schedule_id', $schedule->id)->with(['schedule', 'user', 'character']);
+        $registrations = Registration::where('schedule_id', $schedule->id)
+            ->with(['flex_classes', 'flex_jobs', 'preferred_job', 'preferred_class', 'character', 'user'])
+            ->get();
         return RegistrationResource::collection($registrations);
     }
 
